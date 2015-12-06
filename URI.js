@@ -1,0 +1,1 @@
+module.exports = function URI(){ return "MONGOLAB_URI";}
