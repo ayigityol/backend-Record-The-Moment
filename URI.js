@@ -1,1 +1,0 @@
-module.exports = function URI(){ return "mongodb://heroku_qqt6j5gg:diaf4k1h5fibkk484b05r20thn@ds043917.mongolab.com:43917/heroku_qqt6j5gg";}
