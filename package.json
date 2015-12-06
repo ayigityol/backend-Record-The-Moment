@@ -1,10 +1,10 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.1.5",
-  "description": "A sample Node.js app using Express 4",
-  "main": "index.js",
+  "name": "Remember-The-Moment-Application",
+  "version": "0.1.0",
+  "description": "A backend of an entertaiment application for the record moments.",
+  "main": "API.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node API.js"
   },
   "dependencies": {
     "ejs": "2.3.3",
@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/ayigityol/backend-Record-The-Moment"
   },
   "keywords": [
     "node",
-    "heroku",
-    "express"
+    "backend",
+    "Remember The Moment"
   ],
-  "license": "MIT"
+  "license": "GPL"
 }
