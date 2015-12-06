@@ -14,6 +14,7 @@ app.set('port', (process.env.PORT || 1071)); // port configuration
 app.get("/",function(request, response){
 	console.log("reach to / -GET");
 	response.send("Welcome");
+	
 });
 
 //GETs END
@@ -21,7 +22,7 @@ app.get("/",function(request, response){
 //POSTs START
 app.post("/register",function(request, response){
     console.log("reach to /register -POST");
-	
+	console.log(URI);
 });
 //POSTs END
 
