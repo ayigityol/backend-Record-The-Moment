@@ -5,9 +5,14 @@ var connection = db();
 
 app.set('port', (process.env.PORT || 1071)); // port configuration
 
+app.get("/",function(request, response){
+		response.send("Welcome");
+	
+});
+
 
 app.post("/register",function(request, response){
-			console.log(connection.collection());
+	
 	
 });
 
