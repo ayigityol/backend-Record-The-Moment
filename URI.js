@@ -1,1 +1,1 @@
-module.exports = function URI(){ return "YOUR_MONGODB_CONNECTION_URI";}
+module.exports = function URI(){ return "MONGOLAB_URI";}
