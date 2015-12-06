@@ -22,7 +22,7 @@ app.get("/",function(request, response){
 //POSTs START
 app.post("/register",function(request, response){
     console.log("reach to /register -POST");
-	console.log(URI);
+	response.send(URI);
 });
 //POSTs END
 
