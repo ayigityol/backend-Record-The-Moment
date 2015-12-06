@@ -1,8 +1,8 @@
 {
-  "name": "Node.js Getting Started",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
-  "keywords": ["node", "express", "static"],
-  "image": "heroku/nodejs"
+  "name": "Record-The-Moment-Application",
+  "description": "A backend of an entertaiment application for the record moments.",
+  "repository": "https://github.com/ayigityol/backend-Record-The-Moment",
+  "logo": "",
+  "keywords": ["node", "backend", "Record The Moment"],
+  "image": ""
 }

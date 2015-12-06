@@ -1,5 +1,5 @@
 {
-  "name": "Remember-The-Moment-Application",
+  "name": "Record-The-Moment-Application",
   "version": "0.1.0",
   "description": "A backend of an entertaiment application for the record moments.",
   "main": "API.js",
@@ -21,7 +21,7 @@
   "keywords": [
     "node",
     "backend",
-    "Remember The Moment"
+    "Record The Moment"
   ],
   "license": "GPL"
 }
