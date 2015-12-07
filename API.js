@@ -1,12 +1,16 @@
-var express = require('express');
-var mongoClient = require('mongodb').MongoClient;
+var express = require('express'); // express
+var bodyParser = require("body-parser"); // for handling post requests
+
+var mongoClient = require('mongodb').MongoClient; // mongoDB
+var assert = require("assert");  // used at mongoDB
+var URI = require('./URI.js')(); // CONNECTION STRING TO MONGODB
+
+var bcrypt = require("bcrypt"); // for hashing password
+
 var app = express();
-var assert = require("assert");
-var bodyParser = require("body-parser");
-var ObjectId = require("mongodb").ObjectId;
+var salt = bcrypt.genSaltSync(10); // for hashing password
 //REQs
 
-var URI = require('./URI.js')(); // CONNECTION STRING TO MONGODB
 app.use(bodyParser.json()); // application/json REQUEST BODY PARSER
 //CONFIGs
 
@@ -28,7 +32,7 @@ app.post("/register",function(request, response){
     console.log("reach to /register -POST");
     console.log("Params : " + JSON.stringify(request.body));
     if(!request.is("json")){
-        response.status(400);
+        response.status(400).send("Bad Request");
     }
     else{
         try{
@@ -40,7 +44,7 @@ app.post("/register",function(request, response){
                db.collection("USER").insertOne({
                    "USERNAME" : username,
                    "MAIL" : mail,
-                   "PASSWORD" : password,
+                   "PASSWORD" : bcrypt.hashSync(password, salt),
                    "DATE" : new Date(),
                    "VALID" : false,
                    "LAST_ACCESS" : null
@@ -54,6 +58,7 @@ app.post("/register",function(request, response){
         }
         catch(e){
             console.log("Internal server error -> Expection details :" + JSON.stringify(e));
+            response.status(500).send("Internal Server Error");
         }
         mongoClient.connect(URI,function(err,db){
             assert.equal(null, err);
@@ -64,7 +69,57 @@ app.post("/register",function(request, response){
         });
     }
 });
+
+app.post("/login",function(request, response){
+    console.log("reach to /login -POST");
+    console.log("Params : " + JSON.stringify(request.body));
+    if(!request.is("json")){
+        response.status(400);
+    }
+    else{
+        try {
+            var username = request.body["USERNAME"];
+            var password = request.body["PASSWORD"];
+            var session = "Sample Session!" // TO DO session!
+            
+            var loginQuery = function(db, callback) {
+                db.collection('USER').findOneAndUpdate({"USERNAME" : username}, 
+                { $currentDate: { LAST_ACCESS: true } }, {},
+                function(err, document) {
+                    if(document.value){
+                        if(bcrypt.compareSync(password, document.value.PASSWORD)){
+                            console.log("Username :" + username + " Password : " + password + " is authorized! (" + request.ip + " )");
+                            response.send(session);
+                        }
+                        else{
+                            console.log("Username :" + username + " is unauthorized! (" + request.ip + " )");
+                            response.status(401).send("Unauthorized")
+                        }
+                        callback();
+                    }
+                    else{
+                        console.log("Username :" + username + " Password : " + password + " is unauthorized! (" + request.ip + " )");
+                        response.status(401).send("Unauthorized");
+                    }
+                });
+            };
+        } catch (e) {
+            console.log("Internal server error -> Expection details :" + JSON.stringify(e));
+            response.status(500).send("Internal Server Error");
+        }
+        mongoClient.connect(URI,function(err,db){
+            assert.equal(null, err);
+            loginQuery(db, function() {
+                db.close();
+            });
+           });
+    }
+});
+
+
 //POSTs END
+
+
 
 
 app.listen(app.get('port'), function() {
