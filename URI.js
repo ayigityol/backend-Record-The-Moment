@@ -1,1 +1,1 @@
-module.exports = function URI(){ return process.env.MONGOLAB_URI;}
+module.exports = function URI(){ return process.env.MongoDB;}

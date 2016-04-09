@@ -22,7 +22,7 @@ app.set('port', (process.env.PORT || 1071)); // port configuration
 app.get("/",function(request, response){
 	console.log("reach to / -GET");
 	response.send("Welcome");
-	
+
 });
 
 //GETs END
@@ -39,7 +39,7 @@ app.post("/register",function(request, response){
             var username = request.body["USERNAME"];
             var mail = request.body["MAIL"];
             var password = request.body["PASSWORD"];
-           
+
             var insertDocument = function(db, callback){
                db.collection("USER").insertOne({
                    "USERNAME" : username,
@@ -50,7 +50,7 @@ app.post("/register",function(request, response){
                    "LAST_ACCESS" : null
                }, function(err,result){
                    assert.equal(err,null);
-                   console.log("User created. Detail : username " + 
+                   console.log("User created. Detail : username " +
                    username + " mail " + mail );
                    callback(result);
                });
@@ -81,9 +81,9 @@ app.post("/login",function(request, response){
             var username = request.body["USERNAME"];
             var password = request.body["PASSWORD"];
             var session = "Sample Session!" // TO DO session!
-            
+
             var loginQuery = function(db, callback) {
-                db.collection('USER').findOneAndUpdate({"USERNAME" : username}, 
+                db.collection('USER').findOneAndUpdate({"USERNAME" : username},
                 { $currentDate: { LAST_ACCESS: true } }, {},
                 function(err, document) {
                     if(document.value){
@@ -127,4 +127,3 @@ app.listen(app.get('port'), function() {
   console.log(URI);
 });
 //APP END
-
